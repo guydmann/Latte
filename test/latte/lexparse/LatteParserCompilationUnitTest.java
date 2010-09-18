@@ -112,9 +112,9 @@ public class LatteParserCompilationUnitTest extends TestCase {
 		
 		
 		test_string += "if((jt*height)+kt=precision){\n";
-		test_string += "fractarray[1] := (jt*height)+kt;\n";
+		test_string += "fractarray[(jt*height)+kt] := fractarray[(jt*height)+kt]+2;\n";
 		test_string += "} else {\n";
-		test_string += "fractarray[0] := (jt*height)+kt;\n";
+		test_string += "fractarray[(jt*height)+kt] := fractarray[(jt*height)+kt]+1;\n";
 		test_string += "}\n";
 		
 		test_string += "}\n";

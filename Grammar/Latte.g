@@ -155,8 +155,8 @@ return_type: type | VOID_ID;
 
 scalar_field_declaration: ID;
 
-array_declaration: ID LBRACE size=INTEGER RBRACE -> ^(ARRAY[$size] ID);
-
+//array_declaration: ID LBRACE size=INTEGER RBRACE -> ^(ARRAY[$size] ID);
+array_declaration: ID LBRACE expression RBRACE -> ^(ARRAY ID expression);
 
 method_declaration: (return_type) methname=ID LPAR formal_parameter_list RPAR block -> ^(METH[$methname] return_type formal_parameter_list? block);
 //method_declaration: (return_type) methname=ID LPAR formal_parameter_list RPAR block -> ^(METH[$methname] formal_parameter_list block);
@@ -179,7 +179,7 @@ statement: assignment SEMI!
         | output SEMI! 
         ;
 //^(ID ^(INDEX INTEGER)?)
-assignment: ID (LBRACE INTEGER RBRACE)? ASSIGN expression -> ^(ASSIGN ^(ID ^(INDEX INTEGER)?) ^(expression));
+assignment: ID (LBRACE expression RBRACE)? ASSIGN expression -> ^(ASSIGN ^(ID ^(INDEX expression)?) ^(expression));
 
 //method_call: methname+=ID (PERIOD methname+=ID)* LPAR argument_list RPAR; 
 method_call: methname+=ID (PERIOD methname+=ID)* LPAR argument_list RPAR -> ^(METHCALL ^(SEQUENCE $methname+) argument_list?);
@@ -201,20 +201,31 @@ output: PRINT exps+=expression (COMMA exps+=expression)* -> ^(PRINT $exps+);
 
 expression: or_expression;
 
-or_expression: and_expression (OR^ and_expression)?;
+//or_expression: and_expression 
+//              | or_expression OR and_expression -> ^(OR or_expression and_expression);
+//or_expression: (or_expression OR^)? and_expression;
+or_expression: (and_expression OR^)* and_expression ;
 
-and_expression: equality_expression (AND^ and_expression)?;
+//and_expression: (and_expression AND^)? equality_expression;
+and_expression: (equality_expression AND^)* equality_expression;
 
 equality_expression: relational_expression ((EQUAL | NOTEQUAL)^ relational_expression)?;
 
 relational_expression: add_expression ((LT | GT | LTE | GTE)^ add_expression)?;
 
-add_expression: mult_expression ((PLUS | MINUS)^ add_expression)?;
+//add_expression: mult_expression 
+//              | add_expression (op=PLUS | op=MINUS)^ mult_expression -> ^($op add_expression mult_expression);
+//add_expression: (add_expression (op=PLUS | op=MINUS)^)? mult_expression ;
+add_expression: (mult_expression (op=PLUS | op=MINUS)^)* mult_expression ;
 
-mult_expression:  exp_expression ((MULT | DIVIDE | MOD | DIV)^ mult_expression )?;
+//mult_expression:  (mult_expression (MULT | DIVIDE | MOD | DIV)^)? exp_expression;
+mult_expression:  (exp_expression (MULT | DIVIDE | MOD | DIV)^)* exp_expression;
 
-exp_expression: unary_expression (EXPON^ unary_expression)?;
+//exp_expression: unary_expression 
+//| unary_expression (EXPON^ exp_expression)?;
+exp_expression: unary_expression (EXPON^ exp_expression)?;
 //exp_expression: unary_expression (EXPON unary_expression)?;
+
 
 unary_expression: MINUS unary_expression -> ^(UMINUS["-"] unary_expression)
         | NOT unary_expression  -> ^(NOT unary_expression)
@@ -226,7 +237,7 @@ primary_expression: LPAR expression RPAR -> expression
         | BOOLEAN        
         | CHARLITERAL
         | method_call
-        | ID (LBRACE INTEGER RBRACE)? -> ^(ID ^(INDEX INTEGER)?);
+        | ID (LBRACE expression RBRACE)? -> ^(ID ^(INDEX expression)?);
         
 
 

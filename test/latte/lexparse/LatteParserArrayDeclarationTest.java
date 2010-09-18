@@ -44,5 +44,13 @@ public class LatteParserArrayDeclarationTest extends TestCase {
 	{
 		testArrayDeclaration("afsaf[0]");
 	}
+
+	
+	@Test
+	public void testArrayDeclaration05() throws Exception
+	{
+		testArrayDeclaration("afsaf[a+4]");
+	}
+	
 	
 }
