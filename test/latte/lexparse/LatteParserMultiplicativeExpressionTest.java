@@ -49,4 +49,13 @@ public class LatteParserMultiplicativeExpressionTest extends TestCase {
 		testMultiplicativeExpression("q*a/c div 2");
 	}
 	
+	
+	
+	@Test
+	public void testMultiplicativeExpression05() throws Exception
+	{
+		testMultiplicativeExpression("q*a+5345/c div 2");
+		System.out.println("it makes sense that this only shows 2 nodes because we are testing multicative expressions");
+	}
+	
 }

@@ -42,5 +42,10 @@ public class LatteParserBlockTest extends TestCase {
 	{
 		testBlock("{int a,b[4]; a:=1;b[0]:=0;b[1]:=1;b[2]:=2;b[3]:=3;}");
 	}
+	@Test
+	public void testBlock05() throws Exception
+	{
+		testBlock("{\n\n\njkh:=1;\n\n\n}\n\n");
+	}
 	
 }

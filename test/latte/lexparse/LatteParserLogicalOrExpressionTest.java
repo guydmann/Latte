@@ -42,4 +42,11 @@ public class LatteParserLogicalOrExpressionTest extends TestCase {
 		testLogicalOrExpression("q || a>1 || 2*a || 1 || 69");
 	}
 	
+	
+	@Test
+	public void testLogicalOrExpression05() throws Exception
+	{
+		testLogicalOrExpression("q&&a || 2.5>=n && 3.1415926=Pi");
+	}
+	
 }

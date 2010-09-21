@@ -49,8 +49,23 @@ public class LatteParserAdditiveExpressionTest extends TestCase {
 	{
 		testAdditiveExpression("z+1+q-a+3");
 	}
+	@Test
+	public void testAdditiveExpression06() throws Exception
+	{
+		testAdditiveExpression("42*1/q-a+3");
+	}
 	
+	@Test
+	public void testAdditiveExpression07() throws Exception
+	{
+		testAdditiveExpression("42+2*1/q-a+3");
+	}
 	
+	@Test
+	public void testAdditiveExpression08() throws Exception
+	{
+		testAdditiveExpression("q*a+5345/c div 2");
+	}
 	
 	
 }

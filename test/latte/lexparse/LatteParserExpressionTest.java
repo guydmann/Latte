@@ -42,4 +42,11 @@ public class LatteParserExpressionTest extends TestCase {
 		testExpression("q || a>1 && 2*a");
 	}
 	
+	
+	@Test
+	public void testExpression05() throws Exception
+	{
+		testExpression("~q || a<=1 || b>=1 && 2*a=12 || q~=11");
+	}
+	
 }

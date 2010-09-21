@@ -42,4 +42,11 @@ public class LatteParserAssignmentTest extends TestCase {
 		testAssignment("a:=something");
 	}
 	
+	
+	
+	@Test
+	public void testAssignment05() throws Exception
+	{
+		testAssignment("a:=something*foh^n+2546/23");
+	}
 }

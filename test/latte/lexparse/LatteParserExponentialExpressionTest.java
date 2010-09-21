@@ -43,5 +43,11 @@ public class LatteParserExponentialExpressionTest extends TestCase {
 	{
 		testExponentialExpression("qa^aa^qq^zz");
 	}
+	@Test
+	public void testExponentialExpression05() throws Exception
+	{
+		testExponentialExpression("qa^a*a^q/q^z+z");
+		System.out.println("only the qa^a is recognized cause we are parsing exponential expressions here");
+	}
 	
 }

@@ -48,4 +48,15 @@ public class LatteParserOutputTest extends TestCase {
 		testOutput("print 1,2,g,23,23,42");
 	}
 	
+	
+	@Test
+	public void testOutput05() throws Exception
+	{
+		testOutput("print 1,'235dfsvdfg34@#$@#$@^@^',2,g,23,23,42");
+	}
+
+	
+	
+	
+	
 }

@@ -42,4 +42,10 @@ public class LatteParserFieldDeclarationTest extends TestCase {
 		testFieldDeclaration("float a,b,c[54];");
 	}
 	
+	@Test
+	public void testFieldDeclaration05() throws Exception
+	{
+		testFieldDeclaration("float a1[2],b[3],c[54],z[69];");
+	}
+	
 }

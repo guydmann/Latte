@@ -44,4 +44,22 @@ public class LatteParserArgumentListTest extends TestCase {
 		testArgumentList("true,a~=b,12,42.5,z");
 	}
 	
+	
+	@Test
+	public void testArgumentList05() throws Exception
+	{
+		testArgumentList("false,zz1231235,asd^2,stuff");
+	}
+	
+	@Test
+	public void testArgumentList06() throws Exception
+	{
+		testArgumentList("a+b*8-c+1/64,zz1231235,asd^2,stuff");
+	}
+	
+	@Test
+	public void testArgumentList07() throws Exception
+	{
+		testArgumentList("b-64/2,~something||somethingelse");
+	}
 }

@@ -52,4 +52,15 @@ public class LatteParserArrayDeclarationTest extends TestCase {
 	}
 	
 	
+	@Test
+	public void testArrayDeclaration06() throws Exception
+	{
+		testArrayDeclaration("t1290s[2^z+n]");
+	}
+	
+	@Test
+	public void testArrayDeclaration07() throws Exception
+	{
+		testArrayDeclaration("t1290s[2^(z+n)]");
+	}
 }
