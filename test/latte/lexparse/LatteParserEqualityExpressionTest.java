@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Guy Mann
  */
 package latte.lexparse;
 
@@ -9,40 +9,38 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 
-/**
- * @author guydmann
- *
- */
 public class LatteParserEqualityExpressionTest extends TestCase {
-	
-	public void testLogicalOrExpression(String input) throws RecognitionException {
+	/*
+	 * Tries to parser the input string as an equality expression
+	 */	
+	public void testEqualityExpression(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).expression().tree.toString() + "\n-----------\n");
 		
 	}
 	
 	@Test
-	public void testLogicalOrExpression01() throws Exception
+	public void testEqualityExpression01() throws Exception
 	{
-		testLogicalOrExpression("a");
+		testEqualityExpression("a");
 	}
 	
 	@Test
-	public void testLogicalOrExpression02() throws Exception
+	public void testEqualityExpression02() throws Exception
 	{
-		testLogicalOrExpression("q=1");
+		testEqualityExpression("q=1");
 	}
 	
 	@Test
-	public void testLogicalOrExpression03() throws Exception
+	public void testEqualityExpression03() throws Exception
 	{
-		testLogicalOrExpression("a~=2*b");
+		testEqualityExpression("a~=2*b");
 	}
 	
 	@Test
-	public void testLogicalOrExpression04() throws Exception
+	public void testEqualityExpression04() throws Exception
 	{
-		testLogicalOrExpression("q~=69^n");
+		testEqualityExpression("q~=69^n");
 	}
 	
 }

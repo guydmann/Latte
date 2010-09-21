@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Guy Mann 
  */
 package latte.lexparse;
 
@@ -9,12 +9,11 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 
-/**
- * @author guydmann
- *
- */
 public class LatteParserAdditiveExpressionTest extends TestCase {
 	
+	/*
+	 * Tries to parser the input string as an additive expression
+	 */
 	public void testAdditiveExpression(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).add_expression().tree.toString() + "\n-----------\n");
@@ -24,7 +23,7 @@ public class LatteParserAdditiveExpressionTest extends TestCase {
 	@Test
 	public void testAdditiveExpression01() throws Exception
 	{
-		testAdditiveExpression("a");
+		testAdditiveExpression("1+1.2");
 	}
 	
 	@Test
@@ -44,5 +43,14 @@ public class LatteParserAdditiveExpressionTest extends TestCase {
 	{
 		testAdditiveExpression("q-a^3");
 	}
+	
+	@Test
+	public void testAdditiveExpression05() throws Exception
+	{
+		testAdditiveExpression("z+1+q-a+3");
+	}
+	
+	
+	
 	
 }

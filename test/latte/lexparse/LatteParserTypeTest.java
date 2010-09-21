@@ -1,7 +1,7 @@
 /**
- * 
- */
-package latte.lexparse;
+ * @author Guy Mann
+ *
+ */package latte.lexparse;
 
 import junit.framework.TestCase;
 
@@ -9,12 +9,11 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 
-/**
- * @author guydmann
- *
- */
+
 public class LatteParserTypeTest extends TestCase {
-	
+	/*
+	 * Tries to parser the input string as a type
+	 */	
 	public void testType(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).type().tree.toString() + "\n-----------\n");

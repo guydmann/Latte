@@ -1,3 +1,7 @@
+/*
+ * @author: Guy Mann 
+ */
+
 package latte.ast;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.Token;

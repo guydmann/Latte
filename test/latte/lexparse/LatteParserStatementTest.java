@@ -1,11 +1,6 @@
-/*
- * Created on Sep 2, 2010
- * 
- * Copyright (C) 2010, Gary Pollice, Worcester Polytechnic Institute, gpollice@cs.wpi.edu. 
+/**
  *
- * The program is provided under the terms and conditions of
- * the Eclipse Public License Version 1.0 ("EPL"). A copy of the EPL
- * is available at http://www.eclipse.org/org/documents/epl-v10.php.
+ * @author Guy Mann
  */
 package latte.lexparse;
 
@@ -14,13 +9,11 @@ import junit.framework.TestCase;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
-/**
- *
- * @author gpollice
- * @version Sep 2, 2010
- */
+
 public class LatteParserStatementTest extends TestCase{
-	
+	/*
+	 * Tries to parser the input string as a Statement
+	 */	
 	public void testStatement(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).statement().tree.toString() + "\n-----------\n");

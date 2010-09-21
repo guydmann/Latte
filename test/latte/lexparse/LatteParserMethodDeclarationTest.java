@@ -14,7 +14,9 @@ import org.junit.Test;
  *
  */
 public class LatteParserMethodDeclarationTest extends TestCase {
-	
+	/*
+	 * Tries to parser the input string as a method declaration
+	 */	
 	public void testType(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).method_declaration().tree.toString() + "\n-----------\n");

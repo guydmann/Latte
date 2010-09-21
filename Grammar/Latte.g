@@ -1,13 +1,5 @@
-/**
- * Created on Sep. 2, 2010
- * 
- * Copyright (C) 2010, Gary Pollice, Worcester Polytechnic Institute, gpollice@cs.wpi.edu.
- * 
- * The program is provided under the terms and conditions of the Eclipse Public License Version 1.0
- * ("EPL"). A copy of the EPL is available at http://www.eclipse.org/org/documents/epl-v10.php.
- *
- * Lexical and syntactic analyzer for the base Dijkstra language. If tokens are added,
- * the dijkstra.util.TokenNames class may need to be modified.
+/*
+ * @author: Guy Mann 
  */
 grammar Latte;
 
@@ -39,6 +31,7 @@ package latte.lexparse;
 @parser::header{
 package latte.lexparse;
 import latte.ast.*;
+import latte.lexparse.LatteException;
 import java.io.*;
 }
 
@@ -71,17 +64,24 @@ import java.io.*;
       }
       catch (RecognitionException re) {
         reportError(re);
-        throw new LatteException("Oops!", re);
-//        throw new DijkstraException("Invalid character(s) in the input: ", re);
+        throw new LatteException("Invalid character(s) in the input: ", re);
       }
     }
   }
   
-  public static LatteLexer makeLexer (String input) throws java.io.IOException
+  public static LatteLexer makeLexer (String input)  throws LatteException
   {
-    return new LatteLexer(
+    try {
+      LatteLexer lexer = new LatteLexer(
         new ANTLRReaderStream(
             new java.io.StringReader(input)));
+      //if (lexer.nextToken().getType() != EOF) {
+      //    throw new LatteException("All output not consumed" );  
+      //}
+      return lexer;
+     } catch (java.io.IOException e) {
+      throw new LatteException("IOException while creating a lexer: " + e.getMessage());
+    }
   }
   
 }
@@ -95,18 +95,18 @@ import java.io.*;
   //public LatteAST startRule() {
   //
 
-  public static LatteParser makeParser(String text)
+  public static LatteParser makeParser(String text) throws LatteException
   {
     try {
-      LatteParser p = new LatteParser(
-          new CommonTokenStream(
-              new LatteLexer(
+      LatteLexer lexer = new LatteLexer(
                   new ANTLRReaderStream(
-                      new StringReader(text)))));
+                      new StringReader(text)));
+      
+      LatteParser p = new LatteParser(new CommonTokenStream( lexer ));
       p.setTreeAdaptor(new LatteTreeAdaptor());
       return p;
     } catch (IOException e) {
-      throw new RuntimeException("IOException while creating a parser: " + e.getMessage());
+      throw new LatteException("IOException while creating a parser: " + e.getMessage());
     }
   }
   
@@ -141,7 +141,7 @@ import java.io.*;
 
 // ----------------------- Syntactic Rules -----------------------
 
-compilation_unit: CLASS_ID ID LCURL (body+=declaration)* RCURL -> ^(CLASS_ID[$ID] $body*);
+compilation_unit: CLASS_ID ID LCURL (body+=declaration)* RCURL EOF -> ^(CLASS_ID[$ID] $body*) ;
 
 declaration: field_declaration | method_declaration; 
 
@@ -179,7 +179,7 @@ statement: assignment SEMI!
         | output SEMI! 
         ;
 //^(ID ^(INDEX INTEGER)?)
-assignment: ID (LBRACE expression RBRACE)? ASSIGN expression -> ^(ASSIGN ^(ID ^(INDEX expression)?) ^(expression));
+assignment: ID (LBRACE n1=expression RBRACE)? ASSIGN n2=expression -> ^(ASSIGN ^(ID ^(INDEX $n1)?) ^($n2));
 
 //method_call: methname+=ID (PERIOD methname+=ID)* LPAR argument_list RPAR; 
 method_call: methname+=ID (PERIOD methname+=ID)* LPAR argument_list RPAR -> ^(METHCALL ^(SEQUENCE $methname+) argument_list?);
@@ -189,15 +189,15 @@ argument_list: (expression (COMMA expression)* )? -> ^(SEQUENCE expression+)?;
 
 if_op: IF LPAR expr=expression RPAR truepart=block  (ELSE falsepart=block)? -> ^(IF $expr $truepart ^(ELSE $falsepart)?) ; 
 
-while_op: WHILE LPAR expression RPAR block -> ^(WHILE expression block);
+while_op: WHILE^ LPAR! expression RPAR! block;// -> ^(WHILE expression block);
 
 //return_op: RETURN | ^(RETURN expression);
 //return_op: ^(RETURN expression?);
 return_op: RETURN^ expression?;
 
-input: INPUT ids+=ID (COMMA ids+=ID)* -> ^(INPUT $ids+);
+input: INPUT ids+=ID (COMMA ids+=ID)* -> ^(INPUT ^(SEQUENCE $ids+));
 
-output: PRINT exps+=expression (COMMA exps+=expression)* -> ^(PRINT $exps+);
+output: PRINT exps+=expression (COMMA exps+=expression)* -> ^(PRINT ^(SEQUENCE $exps+));
 
 expression: or_expression;
 
@@ -216,10 +216,11 @@ relational_expression: add_expression ((LT | GT | LTE | GTE)^ add_expression)?;
 //add_expression: mult_expression 
 //              | add_expression (op=PLUS | op=MINUS)^ mult_expression -> ^($op add_expression mult_expression);
 //add_expression: (add_expression (op=PLUS | op=MINUS)^)? mult_expression ;
-add_expression: (mult_expression (op=PLUS | op=MINUS)^)* mult_expression ;
+add_expression: (mult_expression (PLUS | MINUS)^)* mult_expression; 
 
 //mult_expression:  (mult_expression (MULT | DIVIDE | MOD | DIV)^)? exp_expression;
-mult_expression:  (exp_expression (MULT | DIVIDE | MOD | DIV)^)* exp_expression;
+mult_expression:  (exp_expression (MULT | DIVIDE | MOD | DIV)^)* exp_expression ;
+
 
 //exp_expression: unary_expression 
 //| unary_expression (EXPON^ exp_expression)?;

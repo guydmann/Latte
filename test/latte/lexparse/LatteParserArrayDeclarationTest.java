@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Guy Mann 
  */
 package latte.lexparse;
 
@@ -9,11 +9,10 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 
-/**
- * @author guydmann
- *
- */
 public class LatteParserArrayDeclarationTest extends TestCase {
+	/*
+	 * Tries to parser the input string as an array declaration
+	 */
 	public void testArrayDeclaration(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).array_declaration().tree.toString() + "\n-----------\n");

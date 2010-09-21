@@ -1,3 +1,6 @@
+/**
+ * @author Guy Mann 
+ */
 package latte.lexparse;
 
 import junit.framework.Test;
@@ -5,6 +8,9 @@ import junit.framework.TestSuite;
 
 public class AllTests {
 
+	/*
+	 * Runs all the tests
+	 */
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for latte.lexparse");
 		//$JUnit-BEGIN$

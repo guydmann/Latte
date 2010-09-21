@@ -14,7 +14,9 @@ import org.junit.Test;
  *
  */
 public class LatteParserRelationalExpressionTest extends TestCase {
-	
+	/*
+	 * Tries to parser the input string as a relational expression
+	 */	
 	public void testRelationalExpression(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).relational_expression().tree.toString() + "\n-----------\n");

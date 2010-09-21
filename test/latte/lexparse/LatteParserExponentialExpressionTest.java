@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Guy Mann
  */
 package latte.lexparse;
 
@@ -9,12 +9,11 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 
-/**
- * @author guydmann
- *
- */
+
 public class LatteParserExponentialExpressionTest extends TestCase {
-	
+	/*
+	 * Tries to parser the input string as an exponential expression
+	 */	
 	public void testExponentialExpression(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).exp_expression().tree.toString() + "\n-----------\n");

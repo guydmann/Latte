@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Guy Mann
  */
 package latte.lexparse;
 
@@ -9,16 +9,20 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 
-/**
- * @author guydmann
- *
- */
 public class LatteParserMultiplicativeExpressionTest extends TestCase {
-	
+	/*
+	 * Tries to parser the input string as a multiplicative expression
+	 */	
 	public void testMultiplicativeExpression(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).mult_expression().tree.toString() + "\n-----------\n");
 		
+	}
+	
+	@Test
+	public void testMultiplicativeExpression00() throws Exception
+	{
+		testMultiplicativeExpression("a*23616549.12");
 	}
 	
 	@Test

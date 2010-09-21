@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Guy Mann
  */
 package latte.lexparse;
 
@@ -8,12 +8,10 @@ import junit.framework.TestCase;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
-
-/**
- * @author guydmann
- *
- */
 public class LatteParserFormalParameterListTest extends TestCase{
+	/*
+	 * Tries to parser the input string as a formal parameter list
+	 */	
 	public void testParserFormalList(String input) throws RecognitionException {
 		System.out.println(input + "\n");
 		System.out.println(LatteParser.makeParser(input).formal_parameter_list().tree.toString() + "\n-----------\n");
